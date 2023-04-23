@@ -39,7 +39,7 @@ function ipfs_update_bootstrap() {
 function ipfs_run() {
     pushd ${HOME}
     if ! pgrep ipfs; then
-        IPFS_LOGGING=info ipfs daemon >ipfs.log  2>&1 &
+        IPFS_LOGGING=info nohup ipfs daemon >ipfs.log  2>&1 &
     fi
     popd
 }
@@ -86,7 +86,7 @@ function mucc_run() {
     mcid="$(python3 read_mcid.py ${ip})"
     pushd ${HOME}
     if ! pgrep mucc; then
-        mucc start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
+        nohup mucc start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
     fi
     popd
 }
