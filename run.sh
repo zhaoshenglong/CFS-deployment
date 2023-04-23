@@ -16,7 +16,7 @@ function ipfs_init() {
         ipfs init
 
         ipfs bootstrap rm --all
-        cp ${CURDIR}/swarm.key ${HOME}/.ipfs
+        cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs
         sed -i s/127.0.0.1/0.0.0.0/ ${HOME}/.ipfs/config
         ipfs config Routing.Type dht
 
@@ -24,7 +24,7 @@ function ipfs_init() {
             if [ -z "$line" ]; then
                 continue
             fi
-            ${IPFS} bootstrap add "$line"
+            ipfs bootstrap add "$line"
         done < ipfs_bootstrap.txt
     fi
 }
@@ -35,14 +35,16 @@ function ipfs_update_bootstrap() {
         if [ -z "$line" ]; then
             continue
         fi
-        ${IPFS} bootstrap add "$line"
+        ipfs bootstrap add "$line"
     done < ipfs_bootstrap.txt
 }
 
 function ipfs_run() {
+    pushd ${HOME}
     if ! pgrep ipfs; then
         IPFS_LOGGING=info ipfs daemon >ipfs.log  2>&1 &
     fi
+    popd
 }
 
 function ipfs_stop() {
@@ -78,9 +80,11 @@ function mucc_run() {
     bootnode="$(cat ${CURDIR}/mucc_bootstrap.txt)"
     ip="$(curl -s ifconfig.me)"
     mcid="$(python3 read_mcid.py ${ip})"
+    pushd ${HOME}
     if ! pgrep mucc; then
         mucc start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
     fi
+    popd
 }
 
 function mucc_stop() {
