@@ -88,7 +88,7 @@ function mucc_stop() {
 }
 
 # Update the repositories
-git pull
+git stash && git pull
 pushd ${HOME}/multichord
 git pull
 popd
