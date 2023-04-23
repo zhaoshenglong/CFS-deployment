@@ -1,10 +1,3 @@
-ipfs_init 123
-ipfs_run 443 23423
-
-ipfs_update_bootstrap 43 00
-
-ipfs_stop 44
-mucc_run 44
-mucc_stop 4444j
-set_latency 4449
-unset_latency 44
+set_latency
+ipfs_init
+ipfs_run
