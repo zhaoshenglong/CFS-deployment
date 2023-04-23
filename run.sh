@@ -4,7 +4,6 @@
 set -e
 
 CURDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MUCC_DIR="${HOME}/multichord/"
 
 
 function ipfs_download() {
@@ -12,22 +11,21 @@ function ipfs_download() {
 }
 
 function ipfs_init() {
-    IPFS=$(which ipfs)
     if [ ! -d $HOME/.ipfs ]; then
-        ${IPFS} init
+        ipfs init
+
+        ipfs bootstrap rm --all
+        cp ${CURDIR}/swarm.key ${HOME}/.ipfs
+        sed -i s/127.0.0.1/0.0.0.0/ ${HOME}/.ipfs/config
+        ipfs config Routing.Type dht
+
+        while read -r line; do
+            if [ -z "$line" ]; then
+                continue
+            fi
+            ${IPFS} bootstrap add "$line"
+        done < ipfs_bootstrap.txt
     fi
-
-    ${IPFS} bootstrap rm --all
-    cp ${CURDIR}/swarm.key ${HOME}/.ipfs
-    sed -i s/127.0.0.1/0.0.0.0/ ${CURDIR}/.ipfs/config
-    ipfs config Routing.Type dht
-
-    while read -r line; do
-        if [ -z "$line" ]; then
-            continue
-        fi
-        ${IPFS} bootstrap add "$line"
-    done < ipfs_bootstrap.txt
 }
 
 function ipfs_update_bootstrap() {
@@ -41,7 +39,9 @@ function ipfs_update_bootstrap() {
 }
 
 function ipfs_run() {
-    IPFS_LOGGING=info ipfs daemon >ipfs.log  2>&1 &
+    if ! pgrep ipfs; then
+        IPFS_LOGGING=info ipfs daemon >ipfs.log  2>&1 &
+    fi
 }
 
 function ipfs_stop() {
@@ -71,10 +71,15 @@ function mucc_build() {
 }
 
 function mucc_run() {
-    local bootnode="$(cat ${CURDIR}/mucc_bootstrap.txt)"
-    local ip="$(curl -s ifconfig.me)"
-    local mcid=$(python3 read_mcid.py ${ip})
-    mucc start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
+    local bootnode
+    local ip
+    local mcid
+    bootnode="$(cat ${CURDIR}/mucc_bootstrap.txt)"
+    ip="$(curl -s ifconfig.me)"
+    mcid="$(python3 read_mcid.py ${ip})"
+    if ! pgrep mucc; then
+        mucc start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
+    fi
 }
 
 function mucc_stop() {
@@ -83,7 +88,7 @@ function mucc_stop() {
 
 # Update the repositories
 git pull
-pushd ${MUCC_DIR}
+pushd ${HOME}/multichord
 git pull
 popd
 
