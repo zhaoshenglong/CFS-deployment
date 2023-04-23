@@ -1,5 +1,3 @@
-unset_latency
-ipfs_stop
 set_latency
-ipfs_update_bootstrap
+ipfs_init
 ipfs_run
