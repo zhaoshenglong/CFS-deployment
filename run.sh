@@ -11,7 +11,7 @@ function ipfs_download() {
 }
 
 function ipfs_init() {
-    if [ -d ${HOME}/.ipfs ]; then
+    if [ ! -d ${HOME}/.ipfs ]; then
         ${IPFS} init
     fi
 
