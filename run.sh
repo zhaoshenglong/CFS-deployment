@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-source ${HOME}/.bashrc
 
 CURDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+IPFS=${HOME}/ipfs
+MUCC=${HOME}/mucc
 
 
 function ipfs_download() {
@@ -11,9 +12,9 @@ function ipfs_download() {
 
 function ipfs_init() {
     if [ ! -d $HOME/.ipfs ]; then
-        ipfs init
+        ${IPFS} init
 
-        ipfs bootstrap rm --all
+        ${IPFS} bootstrap rm --all
         cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs
         sed -i s/127.0.0.1/0.0.0.0/ ${HOME}/.ipfs/config
         ipfs config Routing.Type dht
@@ -22,25 +23,25 @@ function ipfs_init() {
             if [ -z "$line" ]; then
                 continue
             fi
-            ipfs bootstrap add "$line"
+            ${IPFS} bootstrap add "$line"
         done < ipfs_bootstrap.txt
     fi
 }
 
 function ipfs_update_bootstrap() {
-    ipfs bootstrap rm --all
+    ${IPFS} bootstrap rm --all
     while read -r line; do
         if [ -z "$line" ]; then
             continue
         fi
-        ipfs bootstrap add "$line"
+        ${IPFS} bootstrap add "$line"
     done < ipfs_bootstrap.txt
 }
 
 function ipfs_run() {
     pushd ${HOME}
     if ! pgrep ipfs; then
-        IPFS_LOGGING=info nohup ipfs daemon >ipfs.log  2>&1 &
+        IPFS_LOGGING=info ${IPFS} daemon >ipfs.log  2>&1 &
     fi
     popd
 }
@@ -87,7 +88,7 @@ function mucc_run() {
     mcid="$(python3 read_mcid.py ${ip})"
     pushd ${HOME}
     if ! pgrep mucc; then
-        nohup mucc start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
+        ${MUCC} start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
     fi
     popd
 }
@@ -97,7 +98,7 @@ function mucc_stop() {
 }
 
 # Update the repositories
-git stash && git pull
+git pull
 pushd ${HOME}/multichord
 git pull
 popd
