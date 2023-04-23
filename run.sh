@@ -8,6 +8,7 @@ CURDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 function ipfs_download() {
     wget -O ${HOME}/ipfs https://github.com/zhaoshenglong/CFS-deployment/releases/download/ipfs_v0.1/ipfs
+    chmod +x ${HOME}/ipfs
 }
 
 function ipfs_init() {
