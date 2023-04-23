@@ -11,21 +11,19 @@ function ipfs_download() {
 }
 
 function ipfs_init() {
-    if [ ! -d $HOME/.ipfs ]; then
-        ${IPFS} init
+    ${IPFS} init
 
-        ${IPFS} bootstrap rm --all
-        cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs
-        sed -i s/127.0.0.1/0.0.0.0/ ${HOME}/.ipfs/config
-        ipfs config Routing.Type dht
+    ${IPFS} bootstrap rm --all
+    cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs
+    sed -i s/127.0.0.1/0.0.0.0/ ${HOME}/.ipfs/config
+    ipfs config Routing.Type dht
 
-        while read -r line; do
-            if [ -z "$line" ]; then
-                continue
-            fi
-            ${IPFS} bootstrap add "$line"
-        done < ipfs_bootstrap.txt
-    fi
+    while read -r line; do
+        if [ -z "$line" ]; then
+            continue
+        fi
+        ${IPFS} bootstrap add "$line"
+    done < ipfs_bootstrap.txt
 }
 
 function ipfs_update_bootstrap() {
