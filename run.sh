@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+source ${HOME}/.bashrc
 
 CURDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
