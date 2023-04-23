@@ -11,7 +11,9 @@ function ipfs_download() {
 }
 
 function ipfs_init() {
-    ${IPFS} init
+    if [ -d ${HOME}/.ipfs ]; then
+        ${IPFS} init
+    fi
 
     ${IPFS} bootstrap rm --all
     cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs
