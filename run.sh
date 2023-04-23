@@ -56,13 +56,20 @@ function set_latency() {
     local latency
     nic="$(ifconfig | grep -B1 '172' | grep -v inet | awk '{print $1}' | cut -d ':' -f1)"
     latency=$(cat latency.txt)
-    sudo tc qdisc add dev ${nic} root netem delay ${latency}ms
+
+    if ! sudo tc qdisc add dev ${nic} root netem delay ${latency}ms; then
+        echo "latency has already been set"
+        sudo tc qdisc del dev ${nic} root netem
+        sudo tc qdisc add dev ${nic} root netem delay ${latency}ms
+    fi
 }
 
 function unset_latency() {
     local nic
     nic="$(ifconfig | grep -B1 '172' | grep -v inet | awk '{print $1}' | cut -d ':' -f1)"
-    sudo tc qdisc del dev ${nic} root netem
+    if ! sudo tc qdisc del dev ${nic} root netem; then
+        echo "latency has already been unset"
+    fi
 }
 
 
