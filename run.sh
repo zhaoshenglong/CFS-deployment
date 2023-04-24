@@ -94,7 +94,7 @@ function mucc_run() {
 }
 
 function mucc_stop() {
-    { pgrep ipfs | xargs kill -9; } >/dev/null 2>&1
+    { pgrep mucc | xargs kill -9; } >/dev/null 2>&1
 }
 
 # Update the repositories
