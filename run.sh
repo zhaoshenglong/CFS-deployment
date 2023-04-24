@@ -53,7 +53,7 @@ function ipfs_stop() {
 function set_latency() {
     local nic
     local latency
-    nic="$(ifconfig | grep -B1 '172' | grep -v inet | awk '{print $1}' | cut -d ':' -f1)"
+    nic="$(ifconfig | grep -B1 "$(hostname -i)" | grep -v inet | awk '{print $1}' | cut -d ':' -f1)"
     latency=$(cat latency.txt)
 
     if ! sudo tc qdisc add dev ${nic} root netem delay ${latency}ms; then
@@ -65,7 +65,7 @@ function set_latency() {
 
 function unset_latency() {
     local nic
-    nic="$(ifconfig | grep -B1 '172' | grep -v inet | awk '{print $1}' | cut -d ':' -f1)"
+    nic="$(ifconfig | grep -B1 "$(hostname -i)" | grep -v inet | awk '{print $1}' | cut -d ':' -f1)"
     if ! sudo tc qdisc del dev ${nic} root netem; then
         echo "latency has already been unset"
     fi
