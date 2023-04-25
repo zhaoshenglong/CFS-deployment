@@ -1,2 +1,0 @@
-ipfs_stop
-mucc_run

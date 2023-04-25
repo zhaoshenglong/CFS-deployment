@@ -6,6 +6,7 @@ MUCC=${HOME}/mucc
 
 
 function ipfs_download() {
+    rm ${HOME}/ipfs
     wget -O ${HOME}/ipfs https://github.com/zhaoshenglong/CFS-deployment/releases/download/ipfs_v0.1/ipfs
     chmod +x ${HOME}/ipfs
 }
