@@ -1,1 +1,2 @@
-mucc_build
+set_latency
+mucc_run
