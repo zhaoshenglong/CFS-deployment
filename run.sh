@@ -77,6 +77,7 @@ function mucc_build() {
     pushd "${HOME}/multichord"
     make
     popd
+    rm ${HOME}/mucc
     cp ${HOME}/multichord/bin/mucc/mucc ${HOME}/mucc
 }
 
