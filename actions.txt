@@ -1,1 +1,2 @@
 mucc_build
+mucc_run
