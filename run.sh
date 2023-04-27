@@ -100,9 +100,9 @@ function mucc_stop() {
 }
 
 # Update the repositories
-git restore && git pull
+git restore . && git pull
 pushd ${HOME}/multichord
-git restore && git pull
+git restore .  && git pull
 popd
 
 
