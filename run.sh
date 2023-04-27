@@ -74,11 +74,9 @@ function unset_latency() {
 
 
 function mucc_build() {
-    pushd "${HOME}/multichord"
-    make
-    popd
     rm ${HOME}/mucc
-    cp ${HOME}/multichord/bin/mucc/mucc ${HOME}/mucc
+    wget -O ${HOME}/mucc https://github.com/zhaoshenglong/CFS-deployment/releases/download/ipfs_v0.1/mucc
+    chmod +x ${HOME}/mucc
 }
 
 function mucc_run() {
@@ -100,9 +98,9 @@ function mucc_stop() {
 }
 
 # Update the repositories
-git restore . && git pull
+git pull
 pushd ${HOME}/multichord
-git restore .  && git pull
+git pull
 popd
 
 
