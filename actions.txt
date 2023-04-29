@@ -1,4 +1,3 @@
-ipfs_download
 set_latency
 ipfs_update_bootstrap
 ipfs_run
