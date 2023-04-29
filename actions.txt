@@ -1,2 +1,4 @@
-ipfs_stop
-mucc_run
+ipfs_download
+set_latency
+ipfs_update_bootstrap
+ipfs_run
