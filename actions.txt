@@ -1,3 +1,3 @@
 set_latency
-mucc_download
+mucc_build
 mucc_run
