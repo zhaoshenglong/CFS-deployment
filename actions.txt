@@ -1,1 +1,2 @@
-ipfs_stop
+ipfs_download
+ipfs_run

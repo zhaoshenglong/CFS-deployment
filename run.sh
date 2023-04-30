@@ -83,8 +83,8 @@ function mucc_run() {
     local bootnode
     local ip
     local mcid
-    bootnode="$(cat ${CURDIR}/mucc_bootstrap.txt)"
     ip="$(curl -s ifconfig.me)"
+    bootnode="$(python3 read_bootnode.py ${ip})"
     mcid="$(python3 read_mcid.py ${ip})"
     pushd ${HOME}
     if ! pgrep mucc; then
@@ -99,9 +99,6 @@ function mucc_stop() {
 
 # Update the repositories
 git pull
-pushd ${HOME}/multichord
-git pull
-popd
 
 
 # Execute actions defined in actions.txt
