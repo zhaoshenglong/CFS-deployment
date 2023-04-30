@@ -1,4 +1,3 @@
 set_latency
-ipfs_stop
 ipfs_update_bootstrap
 ipfs_run
