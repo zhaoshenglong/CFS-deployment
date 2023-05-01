@@ -88,7 +88,7 @@ function mucc_run() {
     mcid="$(python3 read_mcid.py ${ip})"
     pushd ${HOME}
     if ! pgrep mucc; then
-        ${MUCC} start --bootnode="${bootnode}" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
+        ${MUCC} start --bootnode="${bootnode}:8100" --ip="${ip}" --mcid="${mcid}" --log=3 8100 > mucc.log 2>&1 & 
     fi
     popd
 }
