@@ -1,3 +1,3 @@
-ipfs_stop
-ipfs_download
-ipfs_run
+set_latency
+mucc_build
+mucc_run
