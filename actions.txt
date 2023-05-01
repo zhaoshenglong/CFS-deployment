@@ -1,6 +1,4 @@
-unset_latency
-mucc_stop
-ipfs_download
-ipfs_init
-ipfs_update_bootstrap
-ipfs_run
+ipfs_stop
+mucc_build
+mucc_run
+
