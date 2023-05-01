@@ -19,7 +19,7 @@ function ipfs_init() {
     ${IPFS} bootstrap rm --all
     cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs
     sed -i s/127.0.0.1/0.0.0.0/ ${HOME}/.ipfs/config
-    ipfs config Routing.Type dht
+    ${IPFS} config Routing.Type dht
 
     while read -r line; do
         if [ -z "$line" ]; then
