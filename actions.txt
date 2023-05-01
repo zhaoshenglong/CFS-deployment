@@ -1,3 +1,4 @@
-set_latency
-mucc_build
-mucc_run
+ipfs_download
+ipfs_init
+ipfs_update_bootstrap
+ipfs_run
