@@ -1,4 +1,2 @@
-ipfs_stop
-mucc_build
-mucc_run
-
+ipfs_update_bootstrap
+ipfs_run
