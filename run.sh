@@ -13,11 +13,14 @@ function ipfs_download() {
 
 function ipfs_init() {
     if [ ! -d ${HOME}/.ipfs ]; then
+        if [ -f ${HOME}/.ipfs ]; then
+            rm ${HOME}/.ipfs
+        fi
         ${IPFS} init
     fi
 
     ${IPFS} bootstrap rm --all
-    cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs
+    cp ${HOME}/multichord/bin/ipfs/swarm.key ${HOME}/.ipfs/swarm.key
     sed -i s/127.0.0.1/0.0.0.0/ ${HOME}/.ipfs/config
     ${IPFS} config Routing.Type dht
 
