@@ -1,3 +1,1 @@
-/ip4/35.173.231.152/tcp/4001/p2p/12D3KooWQooXudJkLB91c4ejMoFf8Yfs9GoqhmGREbAaFUnxv1Wx
-/ip4/18.142.136.5/tcp/4001/p2p/12D3KooWDU3sjiVa8TFTyTcc6w9HnxmbMSweXNiiZ7PChCx3PpTm
-/ip4/35.178.232.166/tcp/4001/p2p/12D3KooWN9fmoQ6jdjqLF4tiR3dSSSoLuxevzwWtxzU5rQgsmXKU
+/ip4/18.170.1.102/tcp/4001/p2p/12D3KooWN9fmoQ6jdjqLF4tiR3dSSSoLuxevzwWtxzU5rQgsmXKU
